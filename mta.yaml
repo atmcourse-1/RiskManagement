@@ -73,5 +73,17 @@ resources:
       service-plan: application
       path: ./xs-security.json
       config:
+        oauth2-configuration: # <-- add this
+          redirect-uris:
+            - https://9f33c94etrial-hana-trial-iaxq1awy-test-risk-management.cfapps.us10-001.hana.ondemand.com/login/callback
         xsappname: risk-management-${org}-${space}
         tenant-mode: dedicated
+        role-collections:
+          - name: 'RiskManager-${space}'
+            description: Manage Risks
+            role-template-references:
+              - $XSAPPNAME.RiskManager
+          - name: 'RiskViewer-${space}'
+            description: View Risks
+            role-template-references:
+              - $XSAPPNAME.RiskViewer
